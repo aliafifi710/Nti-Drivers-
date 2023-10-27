@@ -1,0 +1,75 @@
+/*
+ * MCU_HW.h
+ *
+ *  Created on: Oct 24, 2023
+ *      Author: user
+ */
+
+#ifndef INC_MCU_HW_H_
+#define INC_MCU_HW_H_
+
+#include "std_types.h"
+
+
+typedef union
+{
+	uint8 Reg;
+	struct
+	{
+		uint8 B0:1;
+		uint8 B1:1;
+		uint8 B2:1;
+		uint8 B3:1;
+		uint8 B4:1;
+		uint8 B5:1;
+		uint8 B6:1;
+		uint8 B7:1;
+	}Bitfield;
+}Reg_Def;
+
+
+
+/*************************GPIO******************************/
+typedef struct
+{
+	Reg_Def Pin;
+	Reg_Def DDR;
+	Reg_Def PORT;
+
+
+}Port_Def;
+
+#define PORTA   ((Port_Def*) 0x39)
+#define PORTB   ((Port_Def*) 0x36)
+#define PORTC   ((Port_Def*) 0x33)
+#define PORTD   ((Port_Def*) 0x30)
+
+
+/***************************EXTI******************************/
+typedef struct
+{
+	Reg_Def MCUCSR;
+	Reg_Def MCUCR;
+	Reg_Def reserved[5];
+	Reg_Def GICR;
+
+}EXTI_REGs;
+
+#define EXTI 	 	((EXTI_REGs*)0x54)
+#define SREG 		(*((volatile uint8*)(0x5F)))
+
+/***********************ADC*********************************/
+
+typedef struct
+{
+	uint16 ADCL_r;
+	Reg_Def ADCSRA_r;
+	Reg_Def ADMUX_r;
+//	Reg_Def RESERVED[23];
+//	Reg_Def SFIOR_r;
+
+}ADC_REGS;
+
+#define ADC_REGS       ((ADC_REGS*)0x24)
+
+#endif /* INC_MCU_HW_H_ */
