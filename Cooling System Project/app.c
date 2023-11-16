@@ -221,13 +221,13 @@ int main ()
 	DIO_voidSetPinDirection(PORTA,PIN0_ID,INPUT);
 
 	Init_temp();
-	H_LCD_void_Init();
+	H_LCD_void_IniT();
 	DcMotor_Init();
 
 	uint8 temperature=0;
 	H_LCD_void_sendString("starting the app.");
 	_delay_ms(1000);
-	H_LCD_void_sendCommand(LCD_CLEAR_COMMAND);
+	H_LCD_void_sendCommand(LCD_CLEAR_DISPLAY_SCREEN);
 	H_LCD_void_sendString("current temp = ");
 
 	H_LCD_void_gotoXY(1,0);
@@ -278,7 +278,7 @@ int main ()
 
 		temperature=Read_Temp();
 		H_LCD_void_gotoXY(0,15);
-		H_LCD_void_sendIntNum(temperature);
+		H_LCD_int_to_string(temperature);
 		_delay_ms(250);
 
 
@@ -286,19 +286,19 @@ int main ()
 		{
 			DcMotor_Rotate(Stop,0);
 			H_LCD_void_gotoXY(1,10);
-			H_LCD_void_sendIntNum(0);
+			H_LCD_int_to_string(0);
 		}
 		else if(temperature>25 && temperature <35)
 		{
 			DcMotor_Rotate(Anti_Clockwise,50);
 			H_LCD_void_gotoXY(1,10);
-			H_LCD_void_sendIntNum(50);
+			H_LCD_int_to_string(50);
 		}
 		else if(temperature >=35)
 		{
 			DcMotor_Rotate(Anti_Clockwise,80);
 			H_LCD_void_gotoXY(1,10);
-			H_LCD_void_sendIntNum(80);
+			H_LCD_int_to_string(80);
 		}
 
 
